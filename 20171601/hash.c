@@ -430,3 +430,6 @@ remove_elem (struct hash *h, struct hash_elem *e)
   list_remove (&e->list_elem);
 }
 
+unsigned hash_int_2(int i) {
+	return (i*i)/4;
+}

@@ -531,3 +531,36 @@ list_min (struct list *list, list_less_func *less, void *aux)
     }
   return min;
 }
+void list_swap(struct list_elem *a, struct list_elem *b){
+	int num = 0;
+
+	struct list_item *tmp1 = list_entry(a, struct list_item, elem);
+	struct list_item *tmp2 = list_entry(b, struct list_item, elem);
+
+	num = tmp1->data;
+	tmp1->data = tmp2->data;
+	tmp2->data = num;
+}
+
+void list_shuffle(struct list* list){
+	int size = list_size(list);
+	struct list_elem *elem1;
+	struct list_elem *elem2;
+
+	srand(time(NULL));
+
+	for(int k=0; k<size; k++) {
+		int i = rand()%size;
+		int j=i;
+		while(i == j) j = rand()&size;
+
+		elem1 = list_begin(list);
+		elem2 = list_begin(list);
+
+		for(int x = 0; x<i; x++) elem1 = list_next(elem1);
+		for(int x = 0; x<j; x++) elem2 = list_next(elem2);
+
+		list_swap(elem1, elem2);
+	}
+}
+

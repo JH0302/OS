@@ -374,3 +374,15 @@ bitmap_dump (const struct bitmap *b)
   hex_dump (0, b->bits, byte_cnt (b->bit_cnt)/2, false);
 }
 
+struct bitmap* bitmap_expand(struct bitmap* bitmap, int size) {
+	struct bitmap* new_bitmap = NULL;
+
+	if(bitmap->bit_cnt + (size_t)size > 32) return NULL;
+
+	new_bitmap = bitmap_create((size_t)size + bitmap->bit_cnt);
+	*new_bitmap->bits = *bitmap->bits;
+
+	return new_bitmap;
+
+
+}
